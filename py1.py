@@ -142,7 +142,7 @@ if token_result and "access_token" in token_result:
     user_input = st.chat_input("Enter your message:")
     if user_input:
         st.session_state['chat_history'].append({"role": "user", "content": user_input})
-        st.rerun()
+        
         msgs = [
             {
                 "role": "user",
