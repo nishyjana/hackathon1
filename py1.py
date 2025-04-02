@@ -162,8 +162,15 @@ if token_result and "access_token" in token_result:
 else:
     auth_url = get_auth_url()
 
-    if login is False:
-        webbrowser.open_new_tab(auth_url)
+    if st.button("🔐 Click here to login with Microsoft"):
+    # JavaScript to redirect to the auth URL
+        redirect_script = f"""
+        <script type="text/javascript">
+            window.location.href = "{auth_url}";
+        </script>
+        """
+        # Display the JavaScript in Streamlit
+        st.markdown(redirect_script, unsafe_allow_html=True)
 
 
 
