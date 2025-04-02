@@ -12,7 +12,7 @@ import requests # type: ignore
 CLIENT_ID = 'c5f2b8b6-0ec9-4164-9959-e8f4207f564f'
 CLIENT_SECRET = '0wt8Q~mLMGHALHzuYe9HBqLHv4TY1GPvgPkxyaYF'
 AUTHORITY = 'https://login.microsoftonline.com/4258257d-d3fc-442c-9839-27f31a89da9e'
-REDIRECT_URI = 'http://localhost:8501'
+REDIRECT_URI = 'https://hackathon-abxxapphuu2swgej8u79mcn.streamlit.app'
 SCOPE=['User.Read']
 grant_type='authorization_code' 
 api_key = 'pcsk_74GfB8_DQpW4kMPCFPPbPFGBJUcmwXBNbFUp6neyQ8Hqkf9cDsuW2VgYdwKHZmWQcDYxn6'
