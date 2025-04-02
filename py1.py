@@ -160,7 +160,14 @@ if token_result and "access_token" in token_result:
         st.rerun()
 else:
     auth_url = get_auth_url()
-    st.markdown(f"### [🔐 Click here to login with Microsoft]({auth_url})")
+    redirect_script = f"""
+    <script type="text/javascript">
+        window.location.href = "{auth_url}";
+    </script>
+    """
+
+    # Display the JavaScript in Streamlit
+    st.markdown(redirect_script, unsafe_allow_html=True)
 
 
 
