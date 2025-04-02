@@ -140,12 +140,14 @@ if token_result and "access_token" in token_result:
 
     user_input = st.chat_input("Enter your message:")
     if user_input:
+        
         msgs = [
             {
                 "role": "user",
                 "content": user_input
             }
         ] 
+        st.session_state['chat_history'].append({"role": "user", "content": user_input})
         resp = oai_client.chat.completions.create(
             model="gpt-4o",
             messages=msgs,
@@ -153,7 +155,7 @@ if token_result and "access_token" in token_result:
         ) 
         # resp = assistant.chat(messages=msgs)
         response = resp.choices[0].message.content  
-        st.session_state['chat_history'].append({"role": "user", "content": user_input})
+        
         st.session_state['chat_history'].append({"role": "assistant", "content": response})
         st.rerun()
 else:
