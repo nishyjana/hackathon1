@@ -21,8 +21,7 @@ pc = Pinecone(api_key=api_key)
 name = 'Verdentra-assisstant'
 
 
-
-
+login = False
 def get_msal_app():
     return msal.ConfidentialClientApplication(
         CLIENT_ID,
@@ -75,6 +74,7 @@ else:
 
 
 if token_result and "access_token" in token_result:
+    login = True
     st.success("✅ Login successful!")
     access_token = token_result["access_token"]
 
@@ -161,7 +161,9 @@ if token_result and "access_token" in token_result:
         st.rerun()
 else:
     auth_url = get_auth_url()
-    webbrowser.open_new_tab(auth_url)
+
+    if login is False:
+        webbrowser.open_new_tab(auth_url)
 
 
 
