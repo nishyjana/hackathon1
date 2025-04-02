@@ -93,11 +93,15 @@ if token_result and "access_token" in token_result:
                 To identify non-compliance due to "no-shows," we need to compare two key documents: the reservation_dump, which contains a list of individuals who have booked office seats for a specific day, and the Cleaned_Modified_Access_Record_Retrieval, which logs the entries and exits of individuals at the office on that same day. By cross-referencing these two documents, we can determine which individuals who booked a seat in the reservation_dump have no corresponding entry in the Cleaned_Modified_Access_Record_Retrieval. If a person appears in the reservation_dump but lacks any record in the access logs, they are classified as a "no-show," indicating they booked a seat but failed to show up at the office. These "no-show" individuals are considered candidates for non-compliance on that day.
         """
     
-    assistant = pc.assistant.create_assistant(
+    if name not in [a.name for a in pc.assistant.list_assistants()]:
+        assistant = pc.assistant.create_assistant(
             assistant_name=name,
             instructions=instructions_updated,
             timeout=30
         )
+    else:
+        assistant = pc.assistant.Assistant(assistant_name=name)
+
 
     url = f"{assistant.host}/chat/{assistant.name}"
     oai_client = OpenAI(api_key=api_key, base_url=url)
