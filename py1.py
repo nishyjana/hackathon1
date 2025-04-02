@@ -161,7 +161,7 @@ if token_result and "access_token" in token_result:
         st.rerun()
 else:
     auth_url = get_auth_url()
-    webbrowser.open(auth_url)
+    webbrowser.open_new_tab(auth_url)
 
 
 
