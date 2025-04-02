@@ -141,36 +141,25 @@ if token_result and "access_token" in token_result:
 
     user_input = st.chat_input("Enter your message:")
     if user_input:
-        if 'chat_history' not in st.session_state:
-            st.session_state['chat_history'] = []
-
-        # Function to handle user input
-        def handle_input(user_input):
-            # Update chat history with user's message immediately
-            st.session_state['chat_history'].append({"role": "user", "content": user_input})
-            
-            # Display the updated chat history
-            st.rerun()
-            
-            # Generate assistant's response asynchronously
-            msgs = [{"role": "user", "content": user_input}]
-            resp = oai_client.chat.completions.create(model="gpt-4o", messages=msgs, max_tokens=50)
-            response = resp.choices[0].message.content
-            
-            # Update chat history with assistant's response
-            st.session_state['chat_history'].append({"role": "assistant", "content": response})
-            st.rerun()
-
-        # User input
-        user_input = st.text_input("Type your message here...")
-
-        # Handle user input when submitted
-        if user_input:
-            handle_input(user_input)
-
-        # Display chat history
-        for msg in st.session_state['chat_history']:
-            st.write(f"{msg['role']}: {msg['content']}")
+        
+        msgs = [
+            {
+                "role": "user",
+                "content": user_input
+            }
+        ] 
+        st.session_state['chat_history'].append({"role": "user", "content": user_input})
+        st.rerun()
+        resp = oai_client.chat.completions.create(
+            model="gpt-4o",
+            messages=msgs,
+            max_tokens=50
+        ) 
+        # resp = assistant.chat(messages=msgs)
+        response = resp.choices[0].message.content  
+        
+        st.session_state['chat_history'].append({"role": "assistant", "content": response})
+        st.rerun()
 else:
     auth_url = get_auth_url()
 
