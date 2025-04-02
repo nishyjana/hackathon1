@@ -8,6 +8,7 @@ import uuid
 import json
 import msal # type: ignore
 import requests # type: ignore
+import webbrowser
 
 CLIENT_ID = 'c5f2b8b6-0ec9-4164-9959-e8f4207f564f'
 CLIENT_SECRET = '0wt8Q~mLMGHALHzuYe9HBqLHv4TY1GPvgPkxyaYF'
@@ -160,14 +161,7 @@ if token_result and "access_token" in token_result:
         st.rerun()
 else:
     auth_url = get_auth_url()
-    redirect_script = f"""
-    <script type="text/javascript">
-        window.location.href = "{auth_url}";
-    </script>
-    """
-
-    # Display the JavaScript in Streamlit
-    st.markdown(redirect_script, unsafe_allow_html=True)
+    webbrowser.open(auth_url)
 
 
 
