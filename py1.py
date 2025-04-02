@@ -117,7 +117,7 @@ if token_result and "access_token" in token_result:
     st.markdown("""
         <style>
         .chat-history { max-height: 400px; overflow-y: auto; }
-        .chat-bubble { padding: 10px; border-radius: 10px; margin: 5px; display: inline-block; max-width: 70%; color: black; }
+        .chat-bubble { padding: 10px; border-radius: 10px; margin: 5px; display: inline-block; max-width: 90%; color: black; }
         .user-bubble { background-color: #DCF8C6; align-self: flex-end; }
         .assistant-bubble { background-color: #E6E6E6; align-self: flex-start; }
         .avatar { width: 40px; height: 40px; border-radius: 50%; display: inline-block; vertical-align: middle; margin-right: 10px; }
