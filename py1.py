@@ -353,7 +353,7 @@ if token_result and "access_token" in token_result:
     st.markdown('</div>', unsafe_allow_html=True)
     
     user_input = st.chat_input("Enter your message:")
-    if isdone is False:
+    if isdone is False and user_input:
         show_loader()
     if user_input:
         st.session_state['chat_history'].append({"role": "user", "content": user_input})
