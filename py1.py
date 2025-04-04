@@ -50,6 +50,36 @@ def get_token_from_code(auth_code):
     )
     return result
 
+def add_data_to_trackly():
+    api_token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6IkNOdjBPSTNSd3FsSEZFVm5hb01Bc2hDSDJYRSIsImtpZCI6IkNOdjBPSTNSd3FsSEZFVm5hb01Bc2hDSDJYRSJ9.eyJhdWQiOiJhcGk6Ly83NGY4MTk3Zi1hNjQ1LTQ5NGItYTQ4MC03YzBjNDdlYmIxZWQiLCJpc3MiOiJodHRwczovL3N0cy53aW5kb3dzLm5ldC80MjU4MjU3ZC1kM2ZjLTQ0MmMtOTgzOS0yN2YzMWE4OWRhOWUvIiwiaWF0IjoxNzQzNzkyMDc1LCJuYmYiOjE3NDM3OTIwNzUsImV4cCI6MTc0Mzc5Njk3OCwiYWNyIjoiMSIsImFpbyI6IkFYUUFpLzhaQUFBQWphdTdrU0ZMdzFISlQyQ3hlcXJSaFRpTVVra0JqTEJ0QTErV1FVbUJuTGljSmVrYk1US1BGSEZmdlBPL2V6SUVGQmhQQnJqR0lQU0l1SWVlbUpLS2p5UlhBZ1dtaWVjMGdhYkgxNitLL1IwQkdnVlhoekZsaUdTTU8rbndkbUdXSWc2UXh0VUFQQjRJRWV4c2UzaFNRdz09IiwiYW1yIjpbInB3ZCIsInJzYSIsIm1mYSJdLCJhcHBpZCI6ImNiNzZmYWFiLTYzZWUtNDhlMS1hZjRjLTBjMDlhMGI3YWQyMiIsImFwcGlkYWNyIjoiMCIsImRldmljZWlkIjoiMTJkNGY2N2QtNTYxNi00ODJlLTk2ZGQtNzgyMjU5MTFjNjI1IiwiZmFtaWx5X25hbWUiOiJKYW5hcnRoYW5hcmFqYWgiLCJnaXZlbl9uYW1lIjoiTmlzaGFudGhhbiIsImlwYWRkciI6IjExMi4xMzQuMTY5LjIyMSIsIm5hbWUiOiJOaXNoYW50aGFuIEphbmFydGhhbmFyYWphaCIsIm9pZCI6IjZlOWMxYjgyLWU4MjctNDc3ZC1hOGUwLWU5OTBiNWI5Y2VkZiIsInJoIjoiMS5BWHdBZlNWWVF2elRMRVNZT1NmekdvbmFubjhaLUhSRnBrdEpwSUI4REVmcnNlMjdBUE44QUEuIiwic2NwIjoiYWNjZXNzX2FzX3VzZXIiLCJzaWQiOiI0NzlhNzI1Ni0xMmM4LTQyOTEtOTFlZi04YzAwZmMxODQ1MmIiLCJzdWIiOiJreG9vZzBPSFlMV3lBMHdfb0ZGQi1QZGxFR1Z5M0hxYXNEdEZMZC12My13IiwidGlkIjoiNDI1ODI1N2QtZDNmYy00NDJjLTk4MzktMjdmMzFhODlkYTllIiwidW5pcXVlX25hbWUiOiJuaXNoYW50aGFuakB2ZXJkZW50cmEuY29tIiwidXBuIjoibmlzaGFudGhhbmpAdmVyZGVudHJhLmNvbSIsInV0aSI6ImlfcTNneTRhSkVpNTdUamdVYmtqQUEiLCJ2ZXIiOiIxLjAifQ.GMRHeVh46WiYXPI5VYDsBqjJj3Qn4NH0pMIdykmohXRz3vCGfHHAbfFjEq3ubOXmvHFbJVjCEej7nbi43eesXqiiwblrWVxP3xnvNC84IDuj_gh9zE4wlY0RzPJTmjXlJMV-ZLofcUjz-JlAPLstpG8FWFMDWsPDQLE_jhMpvoS6Y2gkzOFk29wTEd7gRut30PkoE2VNhi-EPD2sAU3Kr2ywxyWpkgtIri6UsQvi4tGJhFFDEXyxf1j6gJhkJ2tR1AkLNOs1JvvPHOKFr52EBAnYkH_fMbLcbYrqAMUirX1JNRyGf22CJqJwCPiMN2F2QZOwP33Qb8bpu6HkhBcmOA'
+    api_base_url = "https://raid-api.verdentra.com/api"  # Replace with your actual API base URL
+
+    form_data = {
+        "title": 'NishyHack',
+        "targetDate": 'Wed Apr 30 2025',
+        "itemTypeId": 2,
+        "itemType": "Action Item",
+        "itemStatusId": 1,
+        "itemStatus": 'Open',
+        "containerId": 39,
+        "container": "Global",
+        "ownerId": 13,
+        "owner":  'Assigned To Me'
+    }
+
+    headers = {
+        "Authorization": f"Bearer {api_token}"
+    }
+
+    try:
+        response = requests.post(f"{api_base_url}/items", data=form_data, headers=headers)
+        
+        return response
+    except requests.RequestException as error:
+        print("Error saving confirmed item:", error)
+        raise
+
+
 
 def get_chatbot_response(userinput):
     msgs = [
@@ -83,7 +113,8 @@ if token_result and "access_token" in token_result:
         "https://graph.microsoft.com/v1.0/me",
         headers={"Authorization": f"Bearer {access_token}"}
     ).json()
-
+    api_token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6IkNOdjBPSTNSd3FsSEZFVm5hb01Bc2hDSDJYRSIsImtpZCI6IkNOdjBPSTNSd3FsSEZFVm5hb01Bc2hDSDJYRSJ9.eyJhdWQiOiJhcGk6Ly83NGY4MTk3Zi1hNjQ1LTQ5NGItYTQ4MC03YzBjNDdlYmIxZWQiLCJpc3MiOiJodHRwczovL3N0cy53aW5kb3dzLm5ldC80MjU4MjU3ZC1kM2ZjLTQ0MmMtOTgzOS0yN2YzMWE4OWRhOWUvIiwiaWF0IjoxNzQzNzkyMDc1LCJuYmYiOjE3NDM3OTIwNzUsImV4cCI6MTc0Mzc5Njk3OCwiYWNyIjoiMSIsImFpbyI6IkFYUUFpLzhaQUFBQWphdTdrU0ZMdzFISlQyQ3hlcXJSaFRpTVVra0JqTEJ0QTErV1FVbUJuTGljSmVrYk1US1BGSEZmdlBPL2V6SUVGQmhQQnJqR0lQU0l1SWVlbUpLS2p5UlhBZ1dtaWVjMGdhYkgxNitLL1IwQkdnVlhoekZsaUdTTU8rbndkbUdXSWc2UXh0VUFQQjRJRWV4c2UzaFNRdz09IiwiYW1yIjpbInB3ZCIsInJzYSIsIm1mYSJdLCJhcHBpZCI6ImNiNzZmYWFiLTYzZWUtNDhlMS1hZjRjLTBjMDlhMGI3YWQyMiIsImFwcGlkYWNyIjoiMCIsImRldmljZWlkIjoiMTJkNGY2N2QtNTYxNi00ODJlLTk2ZGQtNzgyMjU5MTFjNjI1IiwiZmFtaWx5X25hbWUiOiJKYW5hcnRoYW5hcmFqYWgiLCJnaXZlbl9uYW1lIjoiTmlzaGFudGhhbiIsImlwYWRkciI6IjExMi4xMzQuMTY5LjIyMSIsIm5hbWUiOiJOaXNoYW50aGFuIEphbmFydGhhbmFyYWphaCIsIm9pZCI6IjZlOWMxYjgyLWU4MjctNDc3ZC1hOGUwLWU5OTBiNWI5Y2VkZiIsInJoIjoiMS5BWHdBZlNWWVF2elRMRVNZT1NmekdvbmFubjhaLUhSRnBrdEpwSUI4REVmcnNlMjdBUE44QUEuIiwic2NwIjoiYWNjZXNzX2FzX3VzZXIiLCJzaWQiOiI0NzlhNzI1Ni0xMmM4LTQyOTEtOTFlZi04YzAwZmMxODQ1MmIiLCJzdWIiOiJreG9vZzBPSFlMV3lBMHdfb0ZGQi1QZGxFR1Z5M0hxYXNEdEZMZC12My13IiwidGlkIjoiNDI1ODI1N2QtZDNmYy00NDJjLTk4MzktMjdmMzFhODlkYTllIiwidW5pcXVlX25hbWUiOiJuaXNoYW50aGFuakB2ZXJkZW50cmEuY29tIiwidXBuIjoibmlzaGFudGhhbmpAdmVyZGVudHJhLmNvbSIsInV0aSI6ImlfcTNneTRhSkVpNTdUamdVYmtqQUEiLCJ2ZXIiOiIxLjAifQ.GMRHeVh46WiYXPI5VYDsBqjJj3Qn4NH0pMIdykmohXRz3vCGfHHAbfFjEq3ubOXmvHFbJVjCEej7nbi43eesXqiiwblrWVxP3xnvNC84IDuj_gh9zE4wlY0RzPJTmjXlJMV-ZLofcUjz-JlAPLstpG8FWFMDWsPDQLE_jhMpvoS6Y2gkzOFk29wTEd7gRut30PkoE2VNhi-EPD2sAU3Kr2ywxyWpkgtIri6UsQvi4tGJhFFDEXyxf1j6gJhkJ2tR1AkLNOs1JvvPHOKFr52EBAnYkH_fMbLcbYrqAMUirX1JNRyGf22CJqJwCPiMN2F2QZOwP33Qb8bpu6HkhBcmOA'
+    api_base_url = "https://raid-api.verdentra.com/api"  # Replace with your actual API base URL
     instructions_updated = f"""You are VERA, an Assisstant for Verdentra, you going to help with Company operations. Your primary role is to assist employees with their queries while maintaining strict confidentiality and professionalism and bit of fun. The current user is {user_data}.
     You must address {user_data['givenName']} queries while ensuring that no personal identifiable information (PII) of other employees is disclosed. If current user is Mariyam or Mahesh, you can give other employee’s objectives, data, or personal information but
     If current user is not Mariyam or Mahesh and  requests details about another employee’s objectives, personal information, respond with: "I’m sorry, but I can’t provide details about other employees and dont give files link as reference
@@ -93,6 +124,35 @@ if token_result and "access_token" in token_result:
     All responses must be formatted in Markdown and maintain a clear, professional tone in American English. If an employee requests details about non-compliance due to "no-shows," cross-reference the Reservation Dump, which lists employees who booked office seats, with the Cleaned_Modified_Access_Record_Retrieval, which logs office entries and exits. If an employee booked a seat but has no corresponding entry in the access logs, they are classified as a "no-show" and considered non-compliant for that day.
     All the files that you have access is about Verdentra company that your in
     If a request violates company policies (such as requesting PII of other employees), politely decline to provide the data. Additionally, never include references when sharing information about employees. If necessary, direct the user to Mahesh Wanigasooriya for further assistance.
+    If user ask you to add any items to add in trackly you need to trigger this below api,
+        def add_data_to_trackly():
+            api_token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6IkNOdjBPSTNSd3FsSEZFVm5hb01Bc2hDSDJYRSIsImtpZCI6IkNOdjBPSTNSd3FsSEZFVm5hb01Bc2hDSDJYRSJ9.eyJhdWQiOiJhcGk6Ly83NGY4MTk3Zi1hNjQ1LTQ5NGItYTQ4MC03YzBjNDdlYmIxZWQiLCJpc3MiOiJodHRwczovL3N0cy53aW5kb3dzLm5ldC80MjU4MjU3ZC1kM2ZjLTQ0MmMtOTgzOS0yN2YzMWE4OWRhOWUvIiwiaWF0IjoxNzQzNzkyMDc1LCJuYmYiOjE3NDM3OTIwNzUsImV4cCI6MTc0Mzc5Njk3OCwiYWNyIjoiMSIsImFpbyI6IkFYUUFpLzhaQUFBQWphdTdrU0ZMdzFISlQyQ3hlcXJSaFRpTVVra0JqTEJ0QTErV1FVbUJuTGljSmVrYk1US1BGSEZmdlBPL2V6SUVGQmhQQnJqR0lQU0l1SWVlbUpLS2p5UlhBZ1dtaWVjMGdhYkgxNitLL1IwQkdnVlhoekZsaUdTTU8rbndkbUdXSWc2UXh0VUFQQjRJRWV4c2UzaFNRdz09IiwiYW1yIjpbInB3ZCIsInJzYSIsIm1mYSJdLCJhcHBpZCI6ImNiNzZmYWFiLTYzZWUtNDhlMS1hZjRjLTBjMDlhMGI3YWQyMiIsImFwcGlkYWNyIjoiMCIsImRldmljZWlkIjoiMTJkNGY2N2QtNTYxNi00ODJlLTk2ZGQtNzgyMjU5MTFjNjI1IiwiZmFtaWx5X25hbWUiOiJKYW5hcnRoYW5hcmFqYWgiLCJnaXZlbl9uYW1lIjoiTmlzaGFudGhhbiIsImlwYWRkciI6IjExMi4xMzQuMTY5LjIyMSIsIm5hbWUiOiJOaXNoYW50aGFuIEphbmFydGhhbmFyYWphaCIsIm9pZCI6IjZlOWMxYjgyLWU4MjctNDc3ZC1hOGUwLWU5OTBiNWI5Y2VkZiIsInJoIjoiMS5BWHdBZlNWWVF2elRMRVNZT1NmekdvbmFubjhaLUhSRnBrdEpwSUI4REVmcnNlMjdBUE44QUEuIiwic2NwIjoiYWNjZXNzX2FzX3VzZXIiLCJzaWQiOiI0NzlhNzI1Ni0xMmM4LTQyOTEtOTFlZi04YzAwZmMxODQ1MmIiLCJzdWIiOiJreG9vZzBPSFlMV3lBMHdfb0ZGQi1QZGxFR1Z5M0hxYXNEdEZMZC12My13IiwidGlkIjoiNDI1ODI1N2QtZDNmYy00NDJjLTk4MzktMjdmMzFhODlkYTllIiwidW5pcXVlX25hbWUiOiJuaXNoYW50aGFuakB2ZXJkZW50cmEuY29tIiwidXBuIjoibmlzaGFudGhhbmpAdmVyZGVudHJhLmNvbSIsInV0aSI6ImlfcTNneTRhSkVpNTdUamdVYmtqQUEiLCJ2ZXIiOiIxLjAifQ.GMRHeVh46WiYXPI5VYDsBqjJj3Qn4NH0pMIdykmohXRz3vCGfHHAbfFjEq3ubOXmvHFbJVjCEej7nbi43eesXqiiwblrWVxP3xnvNC84IDuj_gh9zE4wlY0RzPJTmjXlJMV-ZLofcUjz-JlAPLstpG8FWFMDWsPDQLE_jhMpvoS6Y2gkzOFk29wTEd7gRut30PkoE2VNhi-EPD2sAU3Kr2ywxyWpkgtIri6UsQvi4tGJhFFDEXyxf1j6gJhkJ2tR1AkLNOs1JvvPHOKFr52EBAnYkH_fMbLcbYrqAMUirX1JNRyGf22CJqJwCPiMN2F2QZOwP33Qb8bpu6HkhBcmOA'
+            api_base_url = "https://raid-api.verdentra.com/api"  # Replace with your actual API base URL
+
+            form_data = {
+                 "title": 'NishyHack',
+                "targetDate": 'Wed Apr 30 2025',
+                "itemTypeId": 2,
+                "itemType": "Action Item",
+                "itemStatusId": 1,
+                "itemStatus": 'Open',
+                "containerId": 39,
+                "container": "Global",
+                "ownerId": 13,
+                "owner":  'Assigned To Me'
+            }
+
+            headers = {
+                "Authorization": f"Bearer {api_token}"
+            }
+
+            try:
+                response = requests.post(f"{api_base_url}/items", data=form_data, headers=headers)
+                
+                return response
+            except requests.RequestException as error:
+                print("Error saving confirmed item:", error)
+                raise
     """
     
     if name not in [a.name for a in pc.assistant.list_assistants()]:
