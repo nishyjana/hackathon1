@@ -227,7 +227,7 @@ if token_result and "access_token" in token_result:
             }
 
             .user-avatar {
-               background-image: url('https://img.freepik.com/premium-photo/avatar-chatbot-friendly_960911-23127.jpg');
+               background-image: url('https://th.bing.com/th/id/OIP.glBtzqX5lElEUPAhQpTXqwHaF7?w=209&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7');
             }
             .assistant-avatar{
                 background-image: url('https://www.verdentra.com/wp-content/uploads/2023/10/custom.svg');
