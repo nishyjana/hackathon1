@@ -229,6 +229,7 @@ if token_result and "access_token" in token_result:
             .user-container {
                 justify-content: flex-start;
                 flex-direction: row-reverse;
+                align-items: center;
             }
 
             .assistant-container {
@@ -250,9 +251,11 @@ if token_result and "access_token" in token_result:
 
             .user-avatar {
                background-image: url('https://th.bing.com/th/id/OIP.tCV3UtrtgxkafOz307c-ogAAAA?w=145&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7');
+               margin-top: 2px;
             }
             .assistant-avatar{
                 background-image: url('https://th.bing.com/th/id/OIP.glBtzqX5lElEUPAhQpTXqwHaF7?w=209&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7');
+                margin-top: 2px;
             }
 
             @keyframes fadeIn {
