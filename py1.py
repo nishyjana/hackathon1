@@ -58,16 +58,16 @@ def trigger_trackly_api():
         "Content-Type": "application/json"
     }
     data = {
-        "title": "NishyHack",
+        "Title": "NishyHack",
         "targetDate": "Wed Apr 30 2025",
         "itemTypeId": 2,
-        "itemType": "Action Item",
+        "ItemType": "Action Item",
         "itemStatusId": 1,
-        "itemStatus": "Open",
+        "ItemStatus": "Open",
         "containerId": 39,
-        "container": "Global",
+        "Container": "Global",
         "ownerId": 13,
-        "owner": "Assigned To Me"
+        "Owner": "Assigned To Me"
     }
     
     response = requests.post(api_url, json=data, headers=headers)
@@ -179,13 +179,8 @@ if token_result and "access_token" in token_result:
         if "create task" in user_input.lower():
             api_response = trigger_trackly_api()
             st.success(f"Task created: {api_response}")
-            user_input = api_response
-            msgs = [
-                {
-                    "role": "user",
-                    "content": user_input
-                }
-            ] 
+            st.rerun()
+            
         
         
         resp = oai_client.chat.completions.create(
