@@ -176,9 +176,7 @@ if token_result and "access_token" in token_result:
                 "content": user_input
             }
         ] 
-        if "create task" in user_input.lower():
-            api_response = trigger_trackly_api()
-            st.success(f"Task created: {api_response}")
+  
             
         
         
