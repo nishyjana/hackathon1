@@ -21,6 +21,7 @@ api_key = 'pcsk_74GfB8_DQpW4kMPCFPPbPFGBJUcmwXBNbFUp6neyQ8Hqkf9cDsuW2VgYdwKHZmWQ
 pc = Pinecone(api_key=api_key)
 name = 'Verdentra-assisstant'
 today = date.today()
+isdone =  False
 
 login = False
 def get_msal_app():
@@ -272,6 +273,75 @@ if token_result and "access_token" in token_result:
         </style>
     """, unsafe_allow_html=True)
  
+    def show_loader():
+        st.markdown(
+            """
+            <style>
+            .loader-container {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100px;
+                margin-top: 20px;
+            }
+
+            .dot-typing {
+                position: relative;
+                width: 10px;
+                height: 10px;
+                border-radius: 5px;
+                background-color: #4a90e2;
+                color: #4a90e2;
+                animation: dot-flashing 1s infinite linear alternate;
+                animation-delay: .5s;
+            }
+
+            .dot-typing::before, .dot-typing::after {
+                content: '';
+                display: inline-block;
+                position: absolute;
+                top: 0;
+            }
+
+            .dot-typing::before {
+                left: -15px;
+                width: 10px;
+                height: 10px;
+                border-radius: 5px;
+                background-color: #4a90e2;
+                color: #4a90e2;
+                animation: dot-flashing 1s infinite alternate;
+                animation-delay: 0s;
+            }
+
+            .dot-typing::after {
+                left: 15px;
+                width: 10px;
+                height: 10px;
+                border-radius: 5px;
+                background-color: #4a90e2;
+                color: #4a90e2;
+                animation: dot-flashing 1s infinite alternate;
+                animation-delay: 1s;
+            }
+
+            @keyframes dot-flashing {
+                0% {
+                    background-color: #4a90e2;
+                }
+                50%, 100% {
+                    background-color: #e0e0e0;
+                }
+            }
+            </style>
+
+            <div class="loader-container">
+                <div class="dot-typing"></div>
+            </div>
+            <p style="text-align: center; color: grey; font-size: 14px;">Generating response...</p>
+            """,
+            unsafe_allow_html=True
+        )
 
  
     st.markdown('<div class="chat-history">', unsafe_allow_html=True)
@@ -281,8 +351,10 @@ if token_result and "access_token" in token_result:
         else:
             st.markdown(f'<div class="chat-container assistant-container"><div class="avatar assistant-avatar"></div><div class="chat-bubble assistant-bubble">{chat["content"]}</div></div>', unsafe_allow_html=True)
     st.markdown('</div>', unsafe_allow_html=True)
-
+    
     user_input = st.chat_input("Enter your message:")
+    if isdone is False:
+        show_loader()
     if user_input:
         st.session_state['chat_history'].append({"role": "user", "content": user_input})
         
@@ -303,7 +375,7 @@ if token_result and "access_token" in token_result:
         ) 
         # resp = assistant.chat(messages=msgs)
         response = resp.choices[0].message.content  
-        
+        isdone =  True
         st.session_state['chat_history'].append({"role": "assistant", "content": response})
         st.rerun()
 else:
