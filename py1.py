@@ -226,9 +226,11 @@ if token_result and "access_token" in token_result:
                 box-shadow: 0 0 4px rgba(0,0,0,0.15);
             }
 
-            
+            .user-avatar {
+               background-image: url('https://img.freepik.com/premium-photo/avatar-chatbot-friendly_960911-23127.jpg');
+            }
             .assistant-avatar{
-                background-image: url('https://img.freepik.com/premium-photo/avatar-chatbot-friendly_960911-23127.jpg');
+                background-image: url('https://www.verdentra.com/wp-content/uploads/2023/10/custom.svg');
             }
 
             @keyframes fadeIn {
