@@ -243,7 +243,7 @@ if token_result and "access_token" in token_result:
                 border-radius: 50%;
                 background-size: cover;
                 background-position: center;
-                margin: -5px 10px 0 10px;
+                margin: -15px 10px 0 10px;
                 flex-shrink: 0;
                 box-shadow: 0 0 4px rgba(0,0,0,0.15);
             }
