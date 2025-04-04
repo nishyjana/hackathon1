@@ -112,7 +112,7 @@ if token_result and "access_token" in token_result:
         instructions=instructions_updated,
     )
 
-    st.title(f"Welcome {user_data['givenName']} to Verdentra Assistance")
+    st.title(f"Welcome {user_data['givenName']} to VERA")
 
     if 'chat_history' not in st.session_state:
         st.session_state['chat_history'] = []
