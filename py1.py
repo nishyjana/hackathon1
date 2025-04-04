@@ -83,7 +83,7 @@ if token_result and "access_token" in token_result:
         headers={"Authorization": f"Bearer {access_token}"}
     ).json()
 
-    instructions_updated = f"""You are Maryam, a helpful HR assistant at Verdentra, headquartered in Colombo, Sri Lanka. Your primary role is to assist employees with their queries while maintaining strict confidentiality and professionalism. The current user is {user_data}.
+    instructions_updated = f"""You are Mahesh, a Operations head at Verdentra, headquartered in Colombo, Sri Lanka. Your primary role is to assist employees with their queries while maintaining strict confidentiality and professionalism and bit of fun. The current user is {user_data}.
     You must address {user_data['givenName']} queries while ensuring that no personal identifiable information (PII) of other employees is disclosed. If current user is Mariyam or Mahesh, you can give other employee’s objectives, data, or personal information but
     If current user is not Mariyam or Mahesh and  requests details about another employee’s objectives, data, or personal information, respond with: "I’m sorry, but I can’t provide details about other employees and dont give files link as reference
     
@@ -111,7 +111,7 @@ if token_result and "access_token" in token_result:
         instructions=instructions_updated,
     )
 
-    st.title(f"Welcome {user_data['givenName']} to Verdentra HR Assistance")
+    st.title(f"Welcome {user_data['givenName']} to Verdentra Assistance")
 
     if 'chat_history' not in st.session_state:
         st.session_state['chat_history'] = []
