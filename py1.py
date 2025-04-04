@@ -143,19 +143,106 @@ if token_result and "access_token" in token_result:
         st.session_state['chat_history'] = []
 
 
+    # st.markdown("""
+    #     <style>
+    #     .chat-history { max-height: 400px; overflow-y: auto; }
+    #     .chat-bubble { padding: 10px; border-radius: 10px; margin: 5px; display: inline-block; max-width: 90%; color: black; }
+    #     .user-bubble { background-color: #DCF8C6; align-self: flex-end; }
+    #     .assistant-bubble { background-color: #E6E6E6; align-self: flex-start; }
+    #     .avatar { width: 40px; height: 40px; border-radius: 50%; display: inline-block; vertical-align: middle; margin-right: 10px; }
+    #     .user-avatar { background-image: https://www.verdentra.com/wp-content/uploads/2024/07/Mahesh_c2a.jpg }
+    #     .chat-container { display: flex; align-items: center; margin-bottom: 10px; }
+    #     .user-container { justify-content: flex-end; }
+    #     .assistant-container { justify-content: flex-start; }
+    #     </style>
+    # """, unsafe_allow_html=True)
+
+    
     st.markdown("""
         <style>
-        .chat-history { max-height: 400px; overflow-y: auto; }
-        .chat-bubble { padding: 10px; border-radius: 10px; margin: 5px; display: inline-block; max-width: 90%; color: black; }
-        .user-bubble { background-color: #DCF8C6; align-self: flex-end; }
-        .assistant-bubble { background-color: #E6E6E6; align-self: flex-start; }
-        .avatar { width: 40px; height: 40px; border-radius: 50%; display: inline-block; vertical-align: middle; margin-right: 10px; }
-        .user-avatar { background-image: https://www.verdentra.com/wp-content/uploads/2024/07/Mahesh_c2a.jpg }
-        .chat-container { display: flex; align-items: center; margin-bottom: 10px; }
-        .user-container { justify-content: flex-end; }
-        .assistant-container { justify-content: flex-start; }
+            /* Scrollable chat history */
+            .chat-history {
+                max-height: 400px;
+                min-width: 760px;
+                overflow-y: auto;            
+                animation: fadeIn 0.5s ease-in-out;            
+            }
+
+            /* Chat bubbles */
+            .chat-bubble {
+                padding: 12px 16px;
+                border-radius: 18px;
+                margin: 8px;
+                display: inline-block;
+                max-width: 85%;
+                font-size: 14px;
+                box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+                animation: slideUp 0.3s ease;
+                transition: background 0.3s ease;
+                line-height: 1.5;
+            }
+
+            .user-bubble {
+                background-color: #d9fdd3;
+                align-self: flex-end;
+                color: #000;
+                border: 1px solid #c3e6cb;
+            }
+
+            .assistant-bubble {
+                background-color: #e0e0e0;
+                align-self: flex-start;
+                color: #333;
+                border: 1px solid #d6d6d6;
+            }
+
+            /* Chat containers */
+            .chat-container {
+                display: flex;
+                align-items: flex-end;
+                margin-bottom: 10px;
+                animation: fadeIn 0.5s ease-in-out;
+            }
+
+            .user-container {
+                justify-content: flex-start;
+                flex-direction: row-reverse;
+            }
+
+            .assistant-container {
+                justify-content: flex-start;
+                flex-direction: row;
+            }
+
+            /* Avatar */
+            .avatar {
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                background-size: cover;
+                background-position: center;
+                margin: 0 10px;
+                flex-shrink: 0;
+                box-shadow: 0 0 4px rgba(0,0,0,0.15);
+            }
+
+            .user-avatar {
+                background-image: url('https://www.verdentra.com/wp-content/uploads/2024/07/Mahesh_c2a.jpg');
+            }
+
+            @keyframes fadeIn {
+                0% { opacity: 0; transform: translateY(10px); }
+                100% { opacity: 1; transform: translateY(0); }
+            }
+
+            @keyframes slideUp {
+                from { transform: translateY(20px); opacity: 0; }
+                to { transform: translateY(0); opacity: 1; }
+            }
+
         </style>
     """, unsafe_allow_html=True)
+ 
 
  
     st.markdown('<div class="chat-history">', unsafe_allow_html=True)
