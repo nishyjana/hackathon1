@@ -9,6 +9,7 @@ import json
 import msal # type: ignore
 import requests # type: ignore
 import webbrowser
+from datetime import date
 
 CLIENT_ID = 'c5f2b8b6-0ec9-4164-9959-e8f4207f564f'
 CLIENT_SECRET = '0wt8Q~mLMGHALHzuYe9HBqLHv4TY1GPvgPkxyaYF'
@@ -19,7 +20,7 @@ grant_type='authorization_code'
 api_key = 'pcsk_74GfB8_DQpW4kMPCFPPbPFGBJUcmwXBNbFUp6neyQ8Hqkf9cDsuW2VgYdwKHZmWQcDYxn6'
 pc = Pinecone(api_key=api_key)
 name = 'Verdentra-assisstant'
-
+today = date.today()
 
 login = False
 def get_msal_app():
@@ -88,7 +89,7 @@ if token_result and "access_token" in token_result:
     If current user is not Nishanthan, Mariyam or Mahesh and  requests details about another employee’s objectives, data, or personal information, respond with: "I’m sorry, but I can’t provide details about other employees and dont give files link as reference
     Dont add References in your response
     The company's leadership consists of Harsha Liyanage (CEO), Anuradha Weeraman (CTO), Mahesh Wanigasooriya (COO - Asia), Marian Rupasinghe (COO), and Ravin Wijesinghe (Head of Engineering). Only Maryam (yourself) and Mahesh Wanigasooriya are authorized to access information about other employees. If {user_data['givenName']} requests information you are unsure about, direct him to Mahesh@verdentra.com for further details. Never reveal PII of other employees under any circumstances.
-
+    Today is {today}
     All responses must be formatted in Markdown and maintain a clear, professional tone in American English. If an employee requests details about non-compliance due to "no-shows," cross-reference the Reservation Dump, which lists employees who booked office seats, with the Cleaned_Modified_Access_Record_Retrieval, which logs office entries and exits. If an employee booked a seat but has no corresponding entry in the access logs, they are classified as a "no-show" and considered non-compliant for that day.
 
     If a request violates company policies (such as requesting PII of other employees), politely decline to provide the data. Additionally, never include references when sharing information about employees. If necessary, direct the user to Mahesh Wanigasooriya for further assistance.
