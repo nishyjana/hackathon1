@@ -235,6 +235,7 @@ if token_result and "access_token" in token_result:
             .assistant-container {
                 justify-content: flex-start;
                 flex-direction: row;
+                align-items: center;
             }
 
             /* Avatar */
