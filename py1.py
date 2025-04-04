@@ -50,7 +50,28 @@ def get_token_from_code(auth_code):
     )
     return result
 
-
+def trigger_trackly_api():
+    api_url = "https://raid-api.verdentra.com/api/items"
+    token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6IkNOdjBPSTNSd3FsSEZFVm5hb01Bc2hDSDJYRSIsImtpZCI6IkNOdjBPSTNSd3FsSEZFVm5hb01Bc2hDSDJYRSJ9.eyJhdWQiOiJhcGk6Ly83NGY4MTk3Zi1hNjQ1LTQ5NGItYTQ4MC03YzBjNDdlYmIxZWQiLCJpc3MiOiJodHRwczovL3N0cy53aW5kb3dzLm5ldC80MjU4MjU3ZC1kM2ZjLTQ0MmMtOTgzOS0yN2YzMWE4OWRhOWUvIiwiaWF0IjoxNzQzNzkyMDc1LCJuYmYiOjE3NDM3OTIwNzUsImV4cCI6MTc0Mzc5Njk3OCwiYWNyIjoiMSIsImFpbyI6IkFYUUFpLzhaQUFBQWphdTdrU0ZMdzFISlQyQ3hlcXJSaFRpTVVra0JqTEJ0QTErV1FVbUJuTGljSmVrYk1US1BGSEZmdlBPL2V6SUVGQmhQQnJqR0lQU0l1SWVlbUpLS2p5UlhBZ1dtaWVjMGdhYkgxNitLL1IwQkdnVlhoekZsaUdTTU8rbndkbUdXSWc2UXh0VUFQQjRJRWV4c2UzaFNRdz09IiwiYW1yIjpbInB3ZCIsInJzYSIsIm1mYSJdLCJhcHBpZCI6ImNiNzZmYWFiLTYzZWUtNDhlMS1hZjRjLTBjMDlhMGI3YWQyMiIsImFwcGlkYWNyIjoiMCIsImRldmljZWlkIjoiMTJkNGY2N2QtNTYxNi00ODJlLTk2ZGQtNzgyMjU5MTFjNjI1IiwiZmFtaWx5X25hbWUiOiJKYW5hcnRoYW5hcmFqYWgiLCJnaXZlbl9uYW1lIjoiTmlzaGFudGhhbiIsImlwYWRkciI6IjExMi4xMzQuMTY5LjIyMSIsIm5hbWUiOiJOaXNoYW50aGFuIEphbmFydGhhbmFyYWphaCIsIm9pZCI6IjZlOWMxYjgyLWU4MjctNDc3ZC1hOGUwLWU5OTBiNWI5Y2VkZiIsInJoIjoiMS5BWHdBZlNWWVF2elRMRVNZT1NmekdvbmFubjhaLUhSRnBrdEpwSUI4REVmcnNlMjdBUE44QUEuIiwic2NwIjoiYWNjZXNzX2FzX3VzZXIiLCJzaWQiOiI0NzlhNzI1Ni0xMmM4LTQyOTEtOTFlZi04YzAwZmMxODQ1MmIiLCJzdWIiOiJreG9vZzBPSFlMV3lBMHdfb0ZGQi1QZGxFR1Z5M0hxYXNEdEZMZC12My13IiwidGlkIjoiNDI1ODI1N2QtZDNmYy00NDJjLTk4MzktMjdmMzFhODlkYTllIiwidW5pcXVlX25hbWUiOiJuaXNoYW50aGFuakB2ZXJkZW50cmEuY29tIiwidXBuIjoibmlzaGFudGhhbmpAdmVyZGVudHJhLmNvbSIsInV0aSI6ImlfcTNneTRhSkVpNTdUamdVYmtqQUEiLCJ2ZXIiOiIxLjAifQ.GMRHeVh46WiYXPI5VYDsBqjJj3Qn4NH0pMIdykmohXRz3vCGfHHAbfFjEq3ubOXmvHFbJVjCEej7nbi43eesXqiiwblrWVxP3xnvNC84IDuj_gh9zE4wlY0RzPJTmjXlJMV-ZLofcUjz-JlAPLstpG8FWFMDWsPDQLE_jhMpvoS6Y2gkzOFk29wTEd7gRut30PkoE2VNhi-EPD2sAU3Kr2ywxyWpkgtIri6UsQvi4tGJhFFDEXyxf1j6gJhkJ2tR1AkLNOs1JvvPHOKFr52EBAnYkH_fMbLcbYrqAMUirX1JNRyGf22CJqJwCPiMN2F2QZOwP33Qb8bpu6HkhBcmOA'
+    headers = {
+        "Authorization": f"Bearer {token}",
+        "Content-Type": "application/json"
+    }
+    data = {
+        "title": "NishyHack",
+        "targetDate": "Wed Apr 30 2025",
+        "itemTypeId": 2,
+        "itemType": "Action Item",
+        "itemStatusId": 1,
+        "itemStatus": "Open",
+        "containerId": 39,
+        "container": "Global",
+        "ownerId": 13,
+        "owner": "Assigned To Me"
+    }
+    
+    response = requests.post(api_url, json=data, headers=headers)
+    return response.json()
 
 def get_chatbot_response(userinput):
     msgs = [
@@ -155,6 +176,17 @@ if token_result and "access_token" in token_result:
                 "content": user_input
             }
         ] 
+        if "create task" in user_input.lower():
+            api_response = trigger_trackly_api()
+            st.success(f"Task created: {api_response}")
+            user_input = api_response
+            msgs = [
+                {
+                    "role": "user",
+                    "content": user_input
+                }
+            ] 
+        
         
         resp = oai_client.chat.completions.create(
             model="gpt-4o",
