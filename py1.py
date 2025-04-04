@@ -129,6 +129,28 @@ if token_result and "access_token" in token_result:
     else:
         assistant = pc.assistant.Assistant(assistant_name=name)
 
+  
+    st.markdown(
+        """
+        <style>
+            .logo-container {
+                display: flex;
+                align-items: center;
+            }
+            .logo-container img {
+                height: 60px;
+                margin-right: 10px;
+            }
+            .css-18e3th9 {  /* Main content container */
+                padding-top: 0 !important;
+            }
+        </style>
+        <div class="logo-container">
+            <img src="https://www.verdentra.com/wp-content/uploads/2023/04/verdentra_logo_white.svg" alt="Logo">
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
 
     url = f"{assistant.host}/chat/{assistant.name}"
     oai_client = OpenAI(api_key=api_key, base_url=url)
