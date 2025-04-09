@@ -17,7 +17,7 @@ AUTHORITY = 'https://login.microsoftonline.com/4258257d-d3fc-442c-9839-27f31a89d
 REDIRECT_URI = 'https://hackathon-abxxapphuu2swgej8u79mcn.streamlit.app'
 SCOPE=['User.Read']
 grant_type='authorization_code' 
-api_key = 'pcsk_74GfB8_DQpW4kMPCFPPbPFGBJUcmwXBNbFUp6neyQ8Hqkf9cDsuW2VgYdwKHZmWQcDYxn6'
+api_key = 'pcsk_6HkiJT_HJypgUB8PHigfQzEe73qjm5S1fBPPktqvDcgEsPHF2F89T4QN1RrzBrCW1p9Mxo'
 pc = Pinecone(api_key=api_key)
 name = 'Verdentra-assisstant'
 today = date.today()
